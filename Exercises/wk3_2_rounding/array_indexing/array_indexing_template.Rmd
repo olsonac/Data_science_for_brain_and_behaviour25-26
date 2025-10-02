@@ -1,0 +1,172 @@
+---
+jupyter:
+  jupytext:
+    notebook_metadata_filter: language_info
+    text_representation:
+      extension: .Rmd
+      format_name: rmarkdown
+      format_version: '1.2'
+      jupytext_version: 1.10.3
+  kernelspec:
+    display_name: Python 3 (ipykernel)
+    language: python
+    name: python3
+  language_info:
+    codemirror_mode:
+      name: ipython
+      version: 3
+    file_extension: .py
+    mimetype: text/x-python
+    name: python
+    nbconvert_exporter: python
+    pygments_lexer: ipython3
+    version: 3.8.11
+---
+
+# Array indexing exercises
+
+These exercises follow on from the [array indexing page]({{ site.baseurl
+}}/arrays/array_indexing).
+
+Run this cell to start:
+
+```{python}
+# Don't change this cell; just run it.
+import numpy as np
+
+# The OKpy testing system.
+from client.api.notebook import Notebook
+ok = Notebook('array_indexing.ok')
+```
+
+Here is the beginning of Hamlet's famous speech:
+
+> To be, or not to be, that is the question:
+> Whether 'tis nobler in the mind to suffer
+> The slings and arrows of outrageous fortune,
+
+And here is a slightly wrong version, as an array of words, and without the punctuation:
+
+```{python}
+# A quote that isn't quite right.
+hamlets_words = np.array(['to', 'be', 'or', 'not', 'to', 'be',
+                          'that', 'be', 'the', 'question',
+                          'whether', 'be', 'nobler', 'in', 'the', 'marrow',
+                          'to', 'suffer', 'the', 'slings', 'and', 'arrows',
+                          'of', 'outrageous', 'fortune'])
+hamlets_words
+```
+
+We can use the `join` method of strings to join these words together with a space (" ") between each word:
+
+```{python}
+" ".join(hamlets_words)
+```
+
+## Indexing with integers
+
+Use indexing with integers to set `first_word` to contain the first word in
+`hamlets_words`.
+
+```{python}
+#<- first_word = ...
+first_word = hamlets_words[0]
+#<->
+first_word
+```
+
+Test the result:
+
+```{python}
+_ = ok.grade('q_first_word')
+```
+
+Use indexing with integers to set `funny_word` to have the value "marrow".
+
+```{python}
+#<- funny_word = ...
+funny_word = hamlets_words[15]
+#<->
+funny_word
+```
+
+Test the result:
+
+```{python}
+_ = ok.grade('q_funny_word')
+```
+
+Make a Boolean array `bees` that has `True` where the word in the matching
+position of `hamlets_words` is "be":
+
+```{python}
+#<- bees = hamlets_words...
+bees = hamlets_words == 'be'
+#<->
+bees
+```
+
+```{python}
+_ = ok.grade('q_bees')
+```
+
+Use `np.count_nonzero` to set `n_bees` to have the number of times the word "be" appears in `hamlets_words`.
+
+```{python}
+#<- n_bees = ...
+n_bees = np.count_nonzero(bees)
+#<->
+n_bees
+```
+
+```{python}
+_ = ok.grade('q_n_bees')
+```
+
+Run this cell to make a copy of `hamlets_words`. This uses the `copy` method of the array, to return a new copy.
+
+```{python}
+# Run this cell
+hamlet_improved = hamlets_words.copy()
+```
+
+Use array assignment with indexing, to replace the word "marrow" with the world "mind", in the `hamlet_improved` array
+
+```{python}
+#<- hamlet_improved[.....
+hamlet_improved[15] = 'mind'
+#<->
+hamlet_improved
+```
+
+```{python}
+_ = ok.grade('q_hamlet_improved')
+```
+
+Run this cell to make a copy of `hamlet_improved` to finish up your work of fixing.
+
+```{python}
+# Run this cell
+hamlet_fixed = hamlet_improved.copy()
+```
+
+Use array assignment with indexing to fix the remaining words in the
+`hamlet_fixed` quote, and then set `hamlet_joined` to the result of joining
+the words with a space.
+
+You will likely need a few lines here.
+
+```{python}
+#<- hamlet_fixed[...
+#<- ...
+#<- hamlet_joined = ...
+hamlet_fixed[7] = 'is'
+hamlet_fixed[11] = "'tis"
+hamlet_joined = " ".join(hamlet_fixed)
+#<->
+hamlet_joined
+```
+
+```{python}
+_ = ok.grade('q_hamlet_joined')
+```
