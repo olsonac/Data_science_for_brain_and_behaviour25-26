@@ -1,0 +1,364 @@
+---
+jupyter:
+  jupytext:
+    split_at_heading: true
+    text_representation:
+      extension: .Rmd
+      format_name: rmarkdown
+      format_version: '1.1'
+      jupytext_version: 1.2.4
+  kernelspec:
+    display_name: Python 3
+    language: python
+    name: python3
+---
+
+# How interesting!
+
+As for nearly all your future exercises and homework, this notebook has some
+integrated tests, that check if you are on the right track, or whether you have
+the right answer.
+
+## Introducing OKpy
+
+The tests use a system called "OKpy", written by [John
+Denero](http://denero.org) and others in the data science team at Berkeley.
+
+To get started, run the cell below, to load the OKpy testing machinery:
+
+```{python}
+# Load the OKpy test library and tests.
+from client.api.notebook import Notebook
+ok = Notebook('interesting.ok')
+```
+
+In general, don't forget to execute the cells in the notebook, that we have
+written for you.   If you see an error about `ok` not being defined, further
+down in this notebook, then come back up to this cell above, and execute it.
+
+To give you an example of how this works, here's a question where you have to
+set the variable `a` to have the value 3.  Don't do that yet though.  
+First run the cell below, without making any changes.
+
+```{python}
+#- In a bit, change the 0 to a 3.  Don't do that now though.
+a = 0
+```
+
+Now run this cell.  It runs a series of tests on the variable `a`, to see if
+you've got the right answer.  It will usually check for common problems, and
+give you some hints.  Notice the parts beginning with ">>>".  These have the hints.
+In this case, since you haven't changed the value above yet,
+it should tell you.  Scroll through the messages you get to see any hints.
+
+```{python}
+# Run this cell to test the value you defined above.
+_ = ok.grade('q_defining_a')
+```
+
+If you got an error saying something like `name 'ok' is not defined`, remember
+to go back and run the first cell in this notebook.
+
+Now go back to the cell defining `a` and change the value of `a` to 3.  *Re-run
+the cell* so `a` now has the value of 3.   Then re-run the test above.  It
+should pass.
+
+## Multiplication and power
+
+For this assignment, you will probably eventually need the *power* operator.
+
+As an introduction, the *multiplication* operator is the `*` sign, as in:
+
+```{python}
+10.50 * 3
+```
+
+It tells Python to multiply the values on the left by the value on the right.
+
+The *power* operator is `**`.  It works like this:
+
+```{python}
+2 ** 4
+```
+
+The line above tells Python to calculate the number to the left (here 2) *to
+the power of* the number to the right, here 4.  In other words, the calculation
+`2 ** 4` in Python is the same as:
+
+```{python}
+2 * 2 * 2 * 2
+```
+
+Likewise:
+
+```{python}
+3.5 ** 5
+```
+
+results in the same calculation as:
+
+```{python}
+3.5 * 3.5 * 3.5 * 3.5 * 3.5
+```
+
+Call an expression with a number to the left and right of the `**` power
+operator : a *power expression*.  For example, `2 ** 4` is a power expression,
+`2 * 2` is not a power expression (it does not use `**`), and `2 ** 4 + 3 ** 9` contains two power expressions, `2 ** 4` and `3 ** 9`.
+
+
+Your first question - write 4 * 4 * 4 + 0.3 * 0.3 * 0.3 * 0.3 as the addition
+of two power expressions.  Replace the `...`s in the cell below to finish your
+answer.
+
+```{python}
+ ... ** ... + ... ** ...
+```
+
+When you have this right, you should see the same number as you get from the multiplication. Run the cell below to see the answer using multiplication.
+
+```{python}
+4 * 4 * 4 + 0.3 * 0.3 * 0.3 * 0.3
+```
+
+## Comments
+
+
+In what follows, you will see me using *comments*.  Comments start with a hash character - `#`.  Python ignores everything after the hash character.  This is useful to write text for you or others to read, inside your code.
+
+
+For example, try executing the following cell.
+
+```{python}
+# This is just a comment.  Python ignores it.  It's just for show.
+```
+
+Nothing happens - Python ignored everything after the hash character.
+
+
+## The problem
+
+
+The problem is my bank.
+
+At the beginning of this year, I have a credit card debt of £500.  Call this
+year the *first year*, or *year 1*.
+
+At the moment, the bank will charge me 10% interest per year.
+
+At the end of the first year, the bank will add 10% to my current debt of
+£500, so my new debt, at the start of the second year, will be £550.
+
+At the end of the second year, the bank will add 10% of my debt of £550.  10%
+of £550 is £55, so my debt at the start of the third year is £605.
+
+| Year | Starting debt | 10% interest |
+|------|---------------|--------------|
+| 1    | 500           | 50           |
+| 2    | 550           | 55           |
+| 3    | 605           | 60.5         |
+
+Let's give my original debt amount, a *name* - "my_debt".
+
+```{python}
+# This is the amount I owe at the beginning of the first year.
+my_debt = 500
+```
+
+A variable is a *name attached to a value*.  In this case the name is "my_debt"
+and the value attached to "my_debt" is 500.  `my_debt` is a variable.
+
+The bank charges 10% interest per year.  Put another way, they calculate the
+interest by multiplying my current debt by 0.1.  Let's give that a name too.
+
+```{python}
+interest_rate = 0.1
+```
+
+When they apply the interest, at the end of the year, the amount of interest is
+therefore:
+
+```{python}
+interest = my_debt * interest_rate
+interest
+```
+
+Then my total new debt at the end of the first year will be:
+
+```{python}
+debt_one_year = my_debt + interest
+debt_one_year
+```
+
+There is a short cut to calculate my total debt after one year.
+
+Remember the total debt is the original debt plus interest, which is `my_debt +
+my_debt * interest_rate`.  So, I could also write this as:
+
+```{python}
+(my_debt * 1) + (my_debt * interest_rate)
+```
+
+All I did there was multiply `my_debt` by 1, which gives `my_debt`.
+
+Because of the way that multiplication works, I could rearrange the numbers
+in the cell above, like this, to get the same answer:
+
+```{python}
+my_debt * (1 + interest_rate)
+```
+
+So, we can make a new variable `debt_increaser` that is equal to `1 +
+interest_rate` (as above):
+
+```{python}
+debt_increaser = 1 + interest_rate
+debt_increaser
+```
+
+This variable allows me to calculate `my_debt + my_debt * interest_rate` in a
+more compact way, like this:
+
+```{python}
+my_debt * debt_increaser
+```
+
+Because of the definition of `debt_increaser` above, this is mathematically
+equal to `my_debt * (1 + interest_rate)`, which in turn is mathematically equal
+to `my_debt * 1 + my_debt * interest_rate` which is `my_debt + my_debt *
+interest_rate` - the calculation we want.
+
+
+## Now your turn
+
+Add your code to the cell below, and execute it, to show my total debt at the
+the end of the second year, after interest for that year has been applied.
+
+You should get the same answer as you see in the table above.
+
+```{python}
+#- Show my debt after two years.
+#- Fill in the ... to get the answer.
+debt_two_years = my_debt * debt_increaser ...
+# Show the debt at the end of two years.
+debt_two_years
+```
+
+Here is your first OKpy test to check if you have the right answer for the debt
+after two years.  Run the cell below.  If you have the right answer, it will
+tell you that you have "100.0% passed".  If you have the wrong answer, look at
+the messages, they will give some hints.  If you change the cell above, don't
+forget to re-run the cell, to put the new answer into the `debt_two_years`
+variable.
+
+```{python}
+_ = ok.grade('q_debt_two_years')
+```
+
+Fill in the next cell, in the same way, to show my debt at the end of the third
+year (after interest has been applied).
+
+```{python}
+#- Show my debt after three years.
+#- Fill in the ... to get the answer.
+debt_three_years = my_debt * debt_increaser ...
+# Show the debt at the end of three years.
+debt_three_years
+```
+
+You might want to use a pencil and paper to do the calculation that continues
+from the table above, to check your answer is correct.
+
+Here's an OKpy check for your answer.  Run it to check if you are correct.
+
+```{python}
+_ = ok.grade('q_debt_three_years')
+```
+
+Now show my debt at the end of 10 years - after interest has been applied. You
+might want to use the *power* operator `**` to do this.  Remember that, if I
+have some number `x` then `x ** 4` (read as "x to the power of four") is
+another way of writing `x * x * x * x`.
+
+```{python}
+#- Show my debt after 10 years.
+#- Fill in the ... to get the answer.
+debt_ten_years = my_debt * debt_increaser ...
+# Show the debt at the end of 10 years.
+debt_ten_years
+```
+
+Check your answer with OKpy.
+
+```{python}
+_ = ok.grade('q_debt_ten_years')
+```
+
+## An offer from the bank
+
+
+The bank has just sent me a friendly letter explaining that they are going to
+start charging me interest every week instead of every year.   They value me as
+a customer, so, instead of dividing the annual interest rate by 52, they are
+going to divide it by 53 instead.   But - is that a good offer?
+
+
+Here is their proposed weekly interest rate:
+
+```{python}
+weekly_interest_rate = interest_rate / 53
+weekly_interest_rate
+```
+
+That corresponds to:
+
+```{python}
+weekly_debt_increaser = 1 + weekly_interest_rate
+weekly_debt_increaser
+```
+
+So, starting from my original debt, I will owe this much after one week:
+
+```{python}
+# What I owe, after one week, on the new deal
+my_debt * weekly_debt_increaser
+```
+
+Fill in the cell below, to show how much I will owe after 52 weeks.  You will
+probably want `**` here again.
+
+```{python}
+#- Show my debt after 52 weeks, using the weekly interest rate.
+#- Fill in the ... to get the answer.
+debt_one_year_weekly = my_debt * weekly_debt_increaser ...
+# Show the total debt at the end of one year of weekly interest.
+debt_one_year_weekly
+```
+
+Check your answer with OKpy.
+
+```{python}
+_ = ok.grade('q_debt_one_year_weekly')
+```
+
+## For extra cool points
+
+Can you calculate roughly what the weekly interest rate has to be, in order to
+correspond to the 10% annual interest that I started with?   There are several
+ways to do this, but you can try trial and error, if you like.
+
+Here is an excellent moment to move over to your sheet of paper and think about
+what you need to do.
+
+**Note** - this is relatively hard, so don't worry if it is not obvious how to do this.
+
+```{python}
+correct_weekly_rate = ...
+# Show the correct weekly rate corresponding to a yearly rate of 0.1
+correct_weekly_rate
+```
+
+Check your estimate with the OKpy test:
+
+```{python}
+_ = ok.grade('q_correct_weekly_rate')
+```
